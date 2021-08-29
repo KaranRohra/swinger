@@ -26,7 +26,7 @@ function SwingCalculator(props) {
         }
         const diff = formData.entry - formData.stopLoss;
         setResult({
-            quantity: formData.riskAmount / diff,
+            quantity: Math.floor(formData.riskAmount / diff),
             target: formData.entry + diff * 2,
         });
         setAlert(null);
