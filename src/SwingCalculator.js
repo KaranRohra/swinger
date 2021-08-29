@@ -32,9 +32,11 @@ function SwingCalculator(props) {
         setAlert(null);
     };
     const changeTheme = () => {
+        const isDarkTheme = props.theme.name === "dark";
         props.setTheme({
-            ...(props.theme.name === "dark" ? lightTheme : darkTheme),
+            ...(isDarkTheme ? lightTheme : darkTheme),
         });
+        window.localStorage.setItem("theme", isDarkTheme ? "light" : "dark");
     };
 
     return (
