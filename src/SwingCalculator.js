@@ -58,10 +58,20 @@ function SwingCalculator(props) {
         return targetPercentage;
     };
 
+    const getReward = () => {
+        const profit = (data.target - data.entry) * Math.floor(data.quantity);
+        return profit;
+    };
+
+    const getRisk = () => {
+        const loss = (data.entry - data.stopLoss) * Math.floor(data.quantity);
+        return loss;
+    };
+
     return (
         <Container className="mt-5">
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <h2>Swing Trading ESQT Calculator</h2>
+                <h2>Swing Trading Calculator</h2>
                 <Button onClick={changeTheme} style={{ float: "right" }}>
                     {" "}
                     <Icon.SunFill
@@ -120,6 +130,13 @@ function SwingCalculator(props) {
             <h3>Result</h3>
             <Row className="mb-3">
                 <Form.Group as={Col}>
+                    <Form.Label>Capital Required</Form.Label>
+                    <Form.Control
+                        value={Math.floor(data.quantity) * data.entry}
+                        onChange={() => {}}
+                    />
+                </Form.Group>
+                <Form.Group as={Col}>
                     <Form.Label>Quantity</Form.Label>
                     <Form.Control
                         value={data.quantity || 0}
@@ -138,6 +155,23 @@ function SwingCalculator(props) {
                     />
                 </Form.Group>
             </Row>
+            <Row className="mb-3">
+                <Form.Group as={Col}>
+                    <Form.Label>Risk</Form.Label>
+                    <Form.Control value={getRisk()} onChange={() => {}} />
+                </Form.Group>
+                <Form.Group as={Col}>
+                    <Form.Label>Reward</Form.Label>
+                    <Form.Control value={getReward()} onChange={() => {}} />
+                </Form.Group>
+            </Row>
+            <div className="text-warning">
+                <p>Note:</p>
+                <ul>
+                    <li>Make sure all parameters are logical</li>
+                    <li>Risk to reward ratio is 1:2</li>
+                </ul>
+            </div>
         </Container>
     );
 }
